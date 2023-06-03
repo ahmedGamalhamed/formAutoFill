@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "manifest_version": 3,
+  "name": "Automation master!",
+  "description": "ac10.origin@gmail.com",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "author": "ac10.origin@gmail.com",
+  "background": {
+    "scripts": ["Background.js"]
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "popup.html",
+
+  "permissions": ["scripting", "storage"],
+  "host_permissions": ["<all_urls>"]
+}

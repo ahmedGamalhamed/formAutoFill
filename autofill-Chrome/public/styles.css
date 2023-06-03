@@ -1,0 +1,38 @@
+:root {
+  --bg: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+}
+@font-face {
+  font-family: HelvFont;
+  src: url(./Helvetica-Neue-96-Black-Italic.ttf);
+}
+* {
+  box-sizing: border-box;
+  color: white;
+}
+body {
+  width: 500px;
+  max-height: 600px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.911);
+  padding: 20px;
+}
+#title {
+  font-size: 3rem;
+  font-family: 'HelvFont' 'Times New Roman', Times, serif;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.281);
+  font-weight: 400;
+}
+small {
+  font-size: 0.7rem;
+  color: floralwhite;
+}
+#FileUpload {
+  max-width: 200px;
+}
+#info {
+  min-height: 60px;
+  margin-top: 8px;
+}
