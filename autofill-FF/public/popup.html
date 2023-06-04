@@ -16,7 +16,7 @@
   <body>
     <span id="title">Automation master!</span>
     <div>
-      <div class="input-group mt-5">
+      <div class="input-group mt-2">
         <form action="" id="fileForm" style="width: 100%" class="d-flex flex-column gap-3">
           <input
             required
@@ -34,7 +34,9 @@
             aria-describedby="sheetName"
             placeholder="Sheet name"
           />
-          <button class="btn btn-success btn-lg" style="width: 100%" id="Update" type="submit">Save Data</button>
+          <button class="btn btn-outline-success btn-lg" style="width: 100%" id="Update" type="submit">
+            Save Data
+          </button>
         </form>
       </div>
     </div>
@@ -51,8 +53,18 @@
           />
           <input required type="text" class="form-control mt-3" id="endAbbr" placeholder="End Product Abbreviation" />
         </div>
-        <button class="btn btn-primary btn-lg mt-3" style="width: 100%" id="startBtn" type="submit">Start</button>
+        <button class="btn btn-outline-primary btn-lg mt-3" style="width: 100%" id="startBtn" type="submit">
+          Start
+        </button>
       </form>
+      <div class="d-flex justify-content-between gap-3">
+        <button class="btn btn-outline-light btn-lg mt-3" style="width: 50%" id="selectAllBtn" type="button">
+          Select All
+        </button>
+        <button class="btn btn-outline-danger btn-lg mt-3" style="width: 50%" id="deselectAllBtn" type="button">
+          Deselect All
+        </button>
+      </div>
     </div>
     <div id="info">
       <div id="spinner" class="spinner-border" role="status" style="display: none">

@@ -1,42 +1,47 @@
-import Papa from 'papaparse';
 import readXlsxFile from 'read-excel-file';
 import transpose from 'transpose-2d-array';
-
 const fileInput = document.getElementById('fileInput');
-const form = document.querySelector('form');
+const startForm = document.querySelector('#startForm');
 const successAlert = document.querySelector('#sucess-alert');
 const dangerAlert = document.querySelector('#danger-alert');
 const spinner = document.querySelector('#spinner');
 const startBtn = document.querySelector('#startBtn');
 const endAbbrInput = document.querySelector('#endAbbr');
 const startAbbrInput = document.querySelector('#startAbbr');
-
-fileInput.onchange = (e) => {
+const fileForm = document.querySelector('#fileForm');
+const sheetNameInput = document.querySelector('#sheetNameInput');
+const selectAllBtn = document.querySelector('#selectAllBtn');
+const deselectAllBtn = document.querySelector('#deselectAllBtn');
+fileForm.onsubmit = (e) => {
   e.preventDefault();
-  readXlsxFile(fileInput.files[0]).then((rows) => {
-    chrome.runtime.sendMessage({ order: 'newData', rows });
-    let jsonData = [];
-    let abbrIndex = [];
-    rows.splice(0, 1);
-    const transposedData = transpose(rows);
-    console.log({ transposedData });
-    const titleArr = transposedData[0];
-    transposedData.slice(1, -1).forEach((row) => {
-      let entryObj = {};
-      row.forEach((entry, index) => {
-        const key = titleArr[index];
-        entryObj[key] = entry;
+  readXlsxFile(fileInput.files[0], { sheet: sheetNameInput.value })
+    .then((rows) => {
+      chrome.runtime.sendMessage({ order: 'newData', rows });
+      let jsonData = [];
+      let abbrIndex = [];
+      rows.splice(0, 1);
+      const transposedData = transpose(rows);
+      console.log({ transposedData });
+      const titleArr = transposedData[0];
+      transposedData.slice(1, -1).forEach((row) => {
+        let entryObj = {};
+        row.forEach((entry, index) => {
+          const key = titleArr[index];
+          entryObj[key] = entry;
+        });
+        jsonData.push(entryObj);
+        abbrIndex.push(entryObj['Product Abbreviation']);
       });
-      jsonData.push(entryObj);
-      abbrIndex.push(entryObj['Product Abbreviation']);
+      console.log({ abbrIndex });
+      console.log(jsonData);
+      chrome.storage.local.set({ jsonData, abbrIndex }).then((res) => showAlert('success', 'Saved'));
+    })
+    .catch((err) => {
+      showAlert('error', err.message);
     });
-    console.log({ abbrIndex });
-    console.log(jsonData);
-    chrome.storage.local.set({ jsonData, abbrIndex }).then((res) => showAlert('success', 'Saved'));
-  });
 };
 
-form.onsubmit = async (e) => {
+startForm.onsubmit = async (e) => {
   e.preventDefault();
   hideAlert();
   const { jsonData, abbrIndex } = await chrome.storage.local.get();
@@ -71,3 +76,11 @@ function hideAlert() {
   dangerAlert.style.display = 'none';
   successAlert.style.display = 'none';
 }
+selectAllBtn.onclick = async () => {
+  await chrome.storage.local.set({ select: true });
+  chrome.runtime.sendMessage({ order: 'selectAll' });
+};
+deselectAllBtn.onclick = async () => {
+  await chrome.storage.local.set({ select: false });
+  chrome.runtime.sendMessage({ order: 'selectAll' });
+};

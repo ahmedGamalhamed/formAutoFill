@@ -1,5 +1,3 @@
-import chrome from 'webextension-polyfill';
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { order } = request;
   console.log(order);
@@ -18,13 +16,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         });
       });
       break;
+    case 'selectAll':
+      getCurrentTab().then((currentTab) => {
+        runScript(currentTab.id, 'selectAll.js');
+      });
+      break;
   }
   return true;
 });
 
-async function start(TargetTabId) {
+async function start(targetTabId) {
   chrome.scripting.executeScript({
-    target: { tabId: TargetTabId },
+    target: { tabId: targetTabId },
     files: ['inject.js'],
   });
   // chrome.tabs.onUpdated.addListener((tabId, info) => {
@@ -34,6 +37,13 @@ async function start(TargetTabId) {
   //       files: ['inject.js'],
   //     });
   // });
+}
+
+function runScript(targetTabId, fileName) {
+  chrome.scripting.executeScript({
+    target: { tabId: targetTabId },
+    files: [fileName],
+  });
 }
 
 async function getCurrentTab() {
