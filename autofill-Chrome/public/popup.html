@@ -15,11 +15,32 @@
   </head>
   <body>
     <span id="title">Automation master!</span>
-    <div class="input-group mt-5">
-      <input type="file" class="form-control" id="fileInput" aria-describedby="fileInput" aria-label="Upload" />
-    </div>
     <div>
-      <form action="">
+      <div class="input-group mt-5">
+        <form action="" id="fileForm" style="width: 100%" class="d-flex flex-column gap-3">
+          <input
+            required
+            type="file"
+            class="form-control"
+            id="fileInput"
+            aria-describedby="fileInput"
+            aria-label="Upload"
+          />
+          <input
+            required
+            type="text"
+            class="form-control"
+            id="sheetNameInput"
+            aria-describedby="sheetName"
+            placeholder="Sheet name"
+          />
+          <button class="btn btn-success btn-lg" style="width: 100%" id="Update" type="submit">Save Data</button>
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <form action="" id="startForm">
         <div>
           <input
             required
