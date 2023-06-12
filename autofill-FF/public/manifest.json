@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.13",
   "manifest_version": 3,
   "name": "Automation master!",
   "description": "ac10.origin@gmail.com",
@@ -20,7 +20,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "ac10.origin@autoFill.com"
+      "id": "autoFill_ac10.origin@gmail.com"
     }
   },
 

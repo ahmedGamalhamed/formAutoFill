@@ -104,7 +104,7 @@
     let otherTerms = document.querySelector('textarea');
     setNativeValue(otherTerms, entry['Other Terms']);
 
-    setNativeValue(step3Inputs[5], 'soybeans');
+    setNativeValue(step3Inputs[5], entry['Product Type']);
     let productType = await Selector('.select__option');
     productType.click();
 

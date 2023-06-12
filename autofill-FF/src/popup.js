@@ -23,7 +23,8 @@ fileForm.onsubmit = (e) => {
       const transposedData = transpose(rows);
       console.log({ transposedData });
       const titleArr = transposedData[0];
-      transposedData.slice(1, -1).forEach((row) => {
+      transposedData.splice(0, 1);
+      transposedData.forEach((row) => {
         let entryObj = {};
         row.forEach((entry, index) => {
           const key = titleArr[index];
